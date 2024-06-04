@@ -73,7 +73,10 @@ export async function PATCH(
  * @param {NextRequest} request - The incoming request object.
  * @returns {NextResponse} - Response with status 204 on success, or an error message.
  */
-export async function DELETE({ params }: { params: { todoId: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { todoId: string } }
+) {
   try {
     const id = params.todoId;
 
