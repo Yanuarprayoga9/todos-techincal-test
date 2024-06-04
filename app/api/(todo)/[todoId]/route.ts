@@ -31,8 +31,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-
-
 /**
  * PATCH function to update a Todo item.
  * @param {NextRequest} request - The incoming request object.
@@ -65,8 +63,6 @@ export async function PATCH(request: NextRequest) {
     return new NextResponse("Internal error", { status: 500 });
   }
 }
-
-
 
 /**
  * DELETE function to remove a Todo item by its ID.

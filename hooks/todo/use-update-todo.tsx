@@ -4,8 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 
 const URL = `${baseUrl}/`;
 
-
-
 type OnSuccessFn = (data: Todo) => void;
 
 export const useUpdateTodo = ({ onSuccess }: { onSuccess: OnSuccessFn }) => {

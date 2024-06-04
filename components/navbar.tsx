@@ -12,7 +12,7 @@ export interface NavItems {
 const navItems = [
   {
     label: "Home",
-    href: "/home",
+    href: "/",
     active: false,
   },
   {

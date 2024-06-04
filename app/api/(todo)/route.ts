@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { Prisma } from "@prisma/client";
 
-
-
 /**
  * GET function to retrieve a list of Todo items, optionally filtered by name.
  * @param {NextRequest} request - The incoming request object.
@@ -34,8 +32,6 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Internal error", { status: 500 });
   }
 }
-
-
 
 /**
  * POST function to create a new Todo item.

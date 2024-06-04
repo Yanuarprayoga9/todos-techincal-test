@@ -12,7 +12,7 @@ interface Query {
 const fetchTodos = async (query: Query): Promise<Todo[]> => {
   const url = qs.stringifyUrl({
     url: URL,
-    query: { 
+    query: {
       search: query.search || undefined,
     },
   });
@@ -20,7 +20,7 @@ const fetchTodos = async (query: Query): Promise<Todo[]> => {
   const res = await fetch(url);
 
   if (!res.ok) {
-    throw new Error('Failed to fetch todos');
+    throw new Error("Failed to fetch todos");
   }
 
   return res.json();
@@ -31,7 +31,7 @@ const useGetTodos = (query: Query) => {
     queryKey: ["todos", query.search],
     queryFn: () => fetchTodos(query),
     staleTime: 1000 * 60 * 1, // 1 minute,
-    refetchInterval:1000 * 60 * 30
+    refetchInterval: 1000 * 60 * 30,
   });
 };
 
