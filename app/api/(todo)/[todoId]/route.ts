@@ -7,10 +7,12 @@ import type { NextRequest } from "next/server";
  * @param {NextRequest} request - The incoming request object.
  * @returns {NextResponse} - JSON response with the Todo item or an error message.
  */
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { todoId: string } }
+) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+    const id = params.todoId;
 
     if (!id) {
       return new NextResponse("Missing todo ID", { status: 400 });
@@ -36,10 +38,12 @@ export async function GET(request: NextRequest) {
  * @param {NextRequest} request - The incoming request object.
  * @returns {NextResponse} - JSON response with the updated Todo item or an error message.
  */
-export async function PATCH(request: NextRequest) {
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { todoId: string } }
+) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("todoId");
+    const id = params.todoId;
 
     if (!id) {
       return new NextResponse("Missing todo ID", { status: 400 });
@@ -69,10 +73,9 @@ export async function PATCH(request: NextRequest) {
  * @param {NextRequest} request - The incoming request object.
  * @returns {NextResponse} - Response with status 204 on success, or an error message.
  */
-export async function DELETE(request: NextRequest) {
+export async function DELETE({ params }: { params: { todoId: string } }) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("todoId");
+    const id = params.todoId;
 
     if (!id) {
       return new NextResponse("Missing todo ID", { status: 400 });
