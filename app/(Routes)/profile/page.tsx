@@ -1,9 +1,8 @@
-import React from 'react'
+import Container from "@/components/ui/container";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  return <Container>page</Container>;
+};
 
-export default page
+export default page;
