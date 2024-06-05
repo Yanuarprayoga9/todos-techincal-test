@@ -1,8 +1,5 @@
-import { baseUrl } from "@/lib/baseUrl";
 import { Todo } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-
-const URL = baseUrl;
 
 const fetchTodoById = async (id: string): Promise<Todo> => {
   const res = await fetch(`/api/${id}`);

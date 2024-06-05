@@ -1,9 +1,6 @@
-import { baseUrl } from "@/lib/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
-const URL = `${baseUrl}/`; 
 
 export const useDeleteTodo = () => {
   const router = useRouter()

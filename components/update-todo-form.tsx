@@ -39,8 +39,8 @@ const formSchema = z.object({
 });
 
 export function UpdateTodoForm() {
-  const {todoId} = useParams();
-  const {data:todo} = useGetTodoById(todoId as string);
+  const { todoId } = useParams();
+  const { data: todo } = useGetTodoById(todoId as string);
   const updateTodo = useUpdateTodo();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,62 +51,59 @@ export function UpdateTodoForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.y
     const validatedFields = formSchema.safeParse(values);
     if (!validatedFields.success) {
       return { error: "Invalid fields!" };
     }
-    if(!todo?.id){
-      return { error: "Invalid fields!" }
-    } 
-      
-    updateTodo.mutate({id:todo.id,name:values.name,value:values.value}); 
+    if (!todo?.id) {
+      return { error: "Invalid fields!" };
+    }
+    updateTodo.mutate({ id: todo.id, name: values.name, value: values.value });
   }
   return (
-   <div className="border rounded-md p-4">
-    <h1 className="text-center p-2 font-bold text-2xl">update todo</h1>
-     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>name</FormLabel>
-              <FormControl>
-                <Input placeholder="name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="value"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>value</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Type your value here."
-                  id="message"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          type="submit"
-          className="mt-4 w-full"
-          disabled={updateTodo.isPending}
-        >
-          Submit
-        </Button>
-      </form>
-    </Form>
-   </div>
+    <div className="border rounded-md p-4">
+      <h1 className="text-center p-2 font-bold text-2xl">update todo</h1>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>name</FormLabel>
+                <FormControl>
+                  <Input placeholder="name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="value"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>value</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Type your value here."
+                    id="message"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            className="mt-4 w-full"
+            disabled={updateTodo.isPending}
+          >
+            Submit
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 }

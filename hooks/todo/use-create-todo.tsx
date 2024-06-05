@@ -1,8 +1,5 @@
-import { baseUrl } from "@/lib/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
-const URL = baseUrl; 
 
 export const useCreateTodo = () => {
   const queryClient = useQueryClient();
