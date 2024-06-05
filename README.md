@@ -11,17 +11,20 @@ link : https://mytodos-gold.vercel.app/
 git clone https://github.com/Yanuarprayoga9/todos-technical-test.git
 ```
 
-### Install packages
+### open file
+```shell
+cd  todos-technical-test
+```
 
+### Install packages
 ```shell
 npm i
 ```
 
 ### Setup .env file
-
 ```shell
 # copy .env.example
-cp env.example .env
+cp .env.example .env
 ```
 or
 ```js
