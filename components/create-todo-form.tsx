@@ -29,8 +29,8 @@ const formSchema = z.object({
     .min(2, {
       message: "value must be at least 2 characters.",
     })
-    .max(50, {
-      message: "value max 15 characters.",
+    .max(500, {
+      message: "value max 500 characters.",
     }),
 });
 
@@ -51,7 +51,7 @@ export function CreateTodoForm() {
     }
     createTodo.mutate(values);
   }
-  
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="">
