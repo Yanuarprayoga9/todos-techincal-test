@@ -8,7 +8,7 @@ export const useCreateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (body: Record<string, any>) => {
-      const res = await fetch(URL, {
+      const res = await fetch('/api/', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

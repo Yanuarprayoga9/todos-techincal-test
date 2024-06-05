@@ -1,9 +1,7 @@
-import { baseUrl } from "@/lib/baseUrl";
 import { Todo } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import qs from "query-string";
 
-const URL = `${baseUrl}/`;
 
 interface Query {
   search?: string;
@@ -11,7 +9,7 @@ interface Query {
 
 const fetchTodos = async (query: Query): Promise<Todo[]> => {
   const url = qs.stringifyUrl({
-    url: URL,
+    url: '/api/',
     query: {
       search: query.search || undefined,
     },

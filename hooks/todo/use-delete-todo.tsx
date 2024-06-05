@@ -10,7 +10,7 @@ export const useDeleteTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string): Promise<{ id: string }> => {
-      const res = await fetch(`${URL}${id}`, {
+      const res = await fetch(`'/api/'${id}`, {
         method: "DELETE",
       });
 

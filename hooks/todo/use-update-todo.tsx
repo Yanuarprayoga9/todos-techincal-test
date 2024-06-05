@@ -1,14 +1,12 @@
-import { baseUrl } from "@/lib/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-const URL = baseUrl;
 export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (body: any) => {
       const { id, ...updateData } = body;
-      const todoResponse = await fetch(`${URL}/${id}`, {
+      const todoResponse = await fetch(`/api/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

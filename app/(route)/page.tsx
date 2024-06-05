@@ -1,12 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { baseUrl } from "@/lib/baseUrl";
-
 const Home = () => {
   const handleClick = () => {
     window.location.href = "/todos";
   };
-  console.log({baseUrl,ENVIRONMENT:process.env.NEXT_PUBLIC_ENVIRONMENT!})
 
   return (
     <div>
