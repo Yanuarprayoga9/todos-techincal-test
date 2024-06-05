@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
-import { useCreateTodo } from "@/hooks/todo/use-create-todo";
+import { useUpdateTodo } from "@/hooks/todo/use-update-todo";
+import { useParams } from "next/navigation";
+import { useGetTodoById } from "@/hooks/todo/use-get-todo";
 
 const formSchema = z.object({
   name: z
@@ -37,13 +38,15 @@ const formSchema = z.object({
     }),
 });
 
-export function CreateTodoForm() {
-  const createTodo = useCreateTodo();
+export function UpdateTodoForm() {
+  const {todoId} = useParams();
+  const {data:todo} = useGetTodoById(todoId as string);
+  const updateTodo = useUpdateTodo();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      value: "",
+      name: todo?.name,
+      value: todo?.value,
     },
   });
 
@@ -51,14 +54,19 @@ export function CreateTodoForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.y
     const validatedFields = formSchema.safeParse(values);
-
     if (!validatedFields.success) {
       return { error: "Invalid fields!" };
     }
-    createTodo.mutate(values); 
+    if(!todo?.id){
+      return { error: "Invalid fields!" }
+    } 
+      
+    updateTodo.mutate({id:todo.id,name:values.name,value:values.value}); 
   }
   return (
-    <Form {...form}>
+   <div className="border rounded-md p-4">
+    <h1 className="text-center p-2 font-bold text-2xl">update todo</h1>
+     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="">
         <FormField
           control={form.control}
@@ -93,11 +101,12 @@ export function CreateTodoForm() {
         <Button
           type="submit"
           className="mt-4 w-full"
-          disabled={createTodo.isPending}
+          disabled={updateTodo.isPending}
         >
           Submit
         </Button>
       </form>
     </Form>
+   </div>
   );
 }

@@ -14,6 +14,7 @@ import {
 import { Todo } from "@/types";
 import { TodoActions } from "./todo-item-actions";
 import { TodoBadge } from "./todo-item-badge";
+import { useUpdateTodo } from "@/hooks/todo/use-update-todo";
 
 type TodoItemProps = CardProps & {
   todo: Todo;
@@ -21,9 +22,13 @@ type TodoItemProps = CardProps & {
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function TodoItem({ className, todo, ...props }: TodoItemProps) {
+  const updateTodo = useUpdateTodo();
+  const handleUpdateTodo = () => {
+    updateTodo.mutate({ id: todo.id, isCompleted: !todo.isCompleted });
+  };
   return (
     <Card
-      className={cn("w-full sm:max-w-[380px] ", className)}
+      className={cn("w-full sm:max-w-[380px] cursor-pointer", className)}
       {...props}
       onDoubleClick={() => (window.location.href = `/todos/${todo.id}`)}
     >
@@ -49,8 +54,12 @@ export function TodoItem({ className, todo, ...props }: TodoItemProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={todo.isCompleted ? true : false}>
-          Mark as complete
+        <Button
+          className="w-full"
+          disabled={updateTodo.isPending}
+          onClick={handleUpdateTodo}
+        >
+          {!todo.isCompleted ? "Mark as complete" : "Mark uncomplete"}
         </Button>
       </CardFooter>
     </Card>

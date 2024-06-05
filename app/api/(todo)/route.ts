@@ -21,11 +21,11 @@ export async function GET(request: NextRequest) {
             : {},
         ],
       },
-      orderBy: { createdAt: 'desc' } // Urutkan berdasarkan createdAt, dengan descending order
+      orderBy: { createdAt: 'desc' } 
     };
     
 
-    const todos = await prismadb.todo.findMany(filter);
+    const todos = await prismadb.todo.findMany(filter as object);
 
     console.log(todos);
     return NextResponse.json(todos);

@@ -51,7 +51,7 @@ export async function PATCH(
 
     const body = await request.json();
     const { name, value, isCompleted } = body;
-
+    console.log(isCompleted)
     const updatedTodo = await prismadb.todo.update({
       where: { id },
       data: {
