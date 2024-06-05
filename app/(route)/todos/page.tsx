@@ -24,6 +24,7 @@ export default function Home() {
         <CreateTodoModal />
       </div>
       <Separator className="w-full" />
+      
       <SearchTodo search={search} setSearch={setSearch}/>
       {isLoading ? <div>Loading...</div> : <TodoList todos={todos} />}
     </>
