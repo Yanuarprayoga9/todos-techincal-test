@@ -1,16 +1,21 @@
 "use client";
 import { CreateTodoModal } from "@/components/modal/create-todo";
 import { Heading } from "@/components/page-header";
+import { SearchTodo } from "@/components/search-todo";
 import TodoList from "@/components/todo-list";
-import { Button } from "@/components/ui/button";
-import Container from "@/components/ui/container";
+
 import { Separator } from "@/components/ui/separator";
 import { useGetTodos } from "@/hooks/todo/use-get-todos";
-import { Plus } from "lucide-react";
+import { UseDebounce } from "@/hooks/useDebounce";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { data: todos, error, isLoading } = useGetTodos({});
-
+  const [search, setSearch] = useState("");
+  const debouncedSearch = UseDebounce(search)
+  const { data: todos, error, isLoading, refetch:refetchTodos } = useGetTodos({search:debouncedSearch});
+  useEffect(() => {
+    refetchTodos();
+  }, [debouncedSearch,refetchTodos])
   if (error) return <div>Error loading todos</div>;
 
   return (
@@ -20,8 +25,8 @@ export default function Home() {
         <CreateTodoModal />
       </div>
       <Separator className="w-full" />
-      {isLoading && <div>Loading...</div>}
-      <TodoList todos={todos} />
+      <SearchTodo search={search} setSearch={setSearch}/>
+      {isLoading ? <div>Loading...</div> : <TodoList todos={todos} />}
     </>
   );
 }

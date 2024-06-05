@@ -17,6 +17,7 @@ const fetchTodos = async (query: Query): Promise<Todo[]> => {
     },
   });
 
+  console.log({url})
   const res = await fetch(url);
 
   if (!res.ok) {
@@ -31,7 +32,6 @@ const useGetTodos = (query: Query) => {
     queryKey: ["todos", query.search],
     queryFn: () => fetchTodos(query),
     staleTime: 1000 * 60 * 1, // 1 minute,
-    refetchInterval: 1000 * 60 * 30,
   });
 };
 
