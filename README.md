@@ -1,3 +1,9 @@
+# TODOLIST APP
+## DEPLOYMENT
+vercel
+link : https://mytodos-gold.vercel.app/
+
+
 ## Run Locally
 
 ### Cloning the repository
@@ -22,16 +28,12 @@ or
 # manual setup env
 touch .env
 DATABASE_URL="postgresql://todos_owner:4Lts5KuqrIPx@ep-spring-water-a15hbzw4.ap-southeast-1.aws.neon.tech/todos?sslmode=require"
-NEXT_PUBLIC_ENVIRONMENT=development
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
 ### Connect to Postgre and Push Prisma
 ```shell
 npx prisma generate
-npx prisma db push
 ```
-
 
 ### Start the app
 
