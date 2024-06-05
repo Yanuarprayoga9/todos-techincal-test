@@ -21,13 +21,11 @@ export async function GET(request: NextRequest) {
             : {},
         ],
       },
-      orderBy: { createdAt: 'desc' } 
+      orderBy: { createdAt: "desc" },
     };
-    
 
     const todos = await prismadb.todo.findMany(filter as object);
 
-    console.log(todos);
     return NextResponse.json(todos);
   } catch (error) {
     console.error("[GET TODOS]", error);

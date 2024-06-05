@@ -49,11 +49,11 @@ export function TodoItem({ className, todo, ...props }: TodoItemProps) {
       <CardContent className="grid gap-4 mt-[-12px]">
         <div className="flex items-center space-x-4 rounded-md  bg-slate-50 p-2">
           <div className="flex-1 space-y-1 h-8">
-            <p className="text-sm font-medium leading-none">{todo.value}</p>
+            <p className="text-sm font-medium leading-none overflow-y-scroll">{todo.value}</p>
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="">
         <Button
           className="w-full"
           disabled={updateTodo.isPending}
