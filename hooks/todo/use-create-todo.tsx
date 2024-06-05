@@ -1,12 +1,13 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
-const URL = baseUrl; // Tidak perlu tambahkan '/' kecuali diperlukan
+const URL = baseUrl; 
 
 export const useCreateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (body: Record<string, any>) => { // Menjadi lebih spesifik
+    mutationFn: async (body: Record<string, any>) => {
       const res = await fetch(URL, {
         method: "POST",
         headers: {
@@ -23,6 +24,8 @@ export const useCreateTodo = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+      const notify = () => toast.success("Todo susscesfully created.");
+      notify();
     },
   });
 };

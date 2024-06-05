@@ -17,7 +17,6 @@ const fetchTodos = async (query: Query): Promise<Todo[]> => {
     },
   });
 
-  console.log({url})
   const res = await fetch(url);
 
   if (!res.ok) {

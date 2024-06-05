@@ -1,12 +1,12 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
-const URL = `${baseUrl}`;
-
+const URL = baseUrl;
 export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (body:any) => {
+    mutationFn: async (body: any) => {
       const { id, ...updateData } = body;
       const todoResponse = await fetch(`${URL}/${id}`, {
         method: "PATCH",
@@ -25,7 +25,8 @@ export const useUpdateTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`todos`] });
       queryClient.invalidateQueries({ queryKey: [`todo`] });
-
+      const notify = () => toast.success("Todo susscesfully updated.");
+      notify();
     },
   });
 };
