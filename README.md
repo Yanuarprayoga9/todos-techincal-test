@@ -8,7 +8,7 @@ link : https://mytodos-gold.vercel.app/
 
 ### Cloning the repository
 ```shell
-git clone https://github.com/Yanuarprayoga9/todos-techincal-test.git
+git clone https://github.com/Yanuarprayoga9/todos-technical-test.git
 ```
 
 ### Install packages
@@ -30,7 +30,7 @@ touch .env
 DATABASE_URL="postgresql://todos_owner:4Lts5KuqrIPx@ep-spring-water-a15hbzw4.ap-southeast-1.aws.neon.tech/todos?sslmode=require"
 ```
 
-### Connect to Postgre and Push Prisma
+### Connect to Postgre and generate Prisma
 ```shell
 npx prisma generate
 ```
