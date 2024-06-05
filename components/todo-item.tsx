@@ -13,7 +13,7 @@ import {
 
 import { Todo } from "@/types";
 import { TodoActions } from "./todo-item-actions";
-import { TodoBadge } from "./todo-badge";
+import { TodoBadge } from "./todo-item-badge";
 
 type TodoItemProps = CardProps & {
   todo: Todo;
@@ -22,7 +22,11 @@ type CardProps = React.ComponentProps<typeof Card>;
 
 export function TodoItem({ className, todo, ...props }: TodoItemProps) {
   return (
-    <Card className={cn("w-full sm:max-w-[380px] ", className)} {...props}>
+    <Card
+      className={cn("w-full sm:max-w-[380px] ", className)}
+      {...props}
+      onDoubleClick={() => (window.location.href = `/todos/${todo.id}`)}
+    >
       <CardHeader>
         <CardTitle>
           <div className="flex justify-between">

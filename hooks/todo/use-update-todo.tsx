@@ -1,12 +1,11 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { Todo } from "@prisma/client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const URL = `${baseUrl}/`;
+const URL = `${baseUrl}`;
 
-type OnSuccessFn = (data: Todo) => void;
-
-export const useUpdateTodo = ({ onSuccess }: { onSuccess: OnSuccessFn }) => {
+export const useUpdateTodo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (body: Todo): Promise<Todo> => {
       const { id, ...updateData } = body;
@@ -24,6 +23,8 @@ export const useUpdateTodo = ({ onSuccess }: { onSuccess: OnSuccessFn }) => {
 
       return todoResponse.json();
     },
-    onSuccess,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
   });
 };

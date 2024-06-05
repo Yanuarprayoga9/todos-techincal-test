@@ -8,9 +8,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { CreateTodoForm } from "../create-todo-form";
 
-export function CreateTodoModal() {
+export function UpdateTodoModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -20,13 +19,12 @@ export function CreateTodoModal() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Todo</DialogTitle>
+          <DialogTitle>Update Todo</DialogTitle>
           <DialogDescription>
             Create to your todo here. Click save when youre done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <CreateTodoForm />
         </div>
       </DialogContent>
     </Dialog>

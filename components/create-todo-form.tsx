@@ -16,44 +16,46 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
-import { useParams } from "next/navigation";
+import { useCreateTodo } from "@/hooks/todo/use-create-todo";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "name must be at least 2 characters.",
-  }).max(30, {
-    message: "name max 15 characters.",
-  }),
-  value: z.string().min(2, {
-    message: "value must be at least 2 characters.",
-  }).max(50, {
-    message: "value max 15 characters.",
-  }),
+  name: z
+    .string()
+    .min(2, {
+      message: "name must be at least 2 characters.",
+    })
+    .max(30, {
+      message: "name max 15 characters.",
+    }),
+  value: z
+    .string()
+    .min(2, {
+      message: "value must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "value max 15 characters.",
+    }),
 });
 
-export function TodoForm() {
-    const params = useParams();
-
-  // ...
-  // 1. Define your form.
+export function CreateTodoForm() {
+  const createTodo = useCreateTodo();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      value:""
+      value: "",
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    if(params.todoId){
+    // ✅ This will be type-safe and validated.y
+    const validatedFields = formSchema.safeParse(values);
 
-    }else{
-        
+    if (!validatedFields.success) {
+      return { error: "Invalid fields!" };
     }
+    createTodo.mutate(values); 
   }
   return (
     <Form {...form}>
@@ -78,13 +80,23 @@ export function TodoForm() {
             <FormItem>
               <FormLabel>value</FormLabel>
               <FormControl>
-              <Textarea placeholder="Type your message here." id="message"  {...field}  />
+                <Textarea
+                  placeholder="Type your message here."
+                  id="message"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4 w-full">Submit</Button>
+        <Button
+          type="submit"
+          className="mt-4 w-full"
+          disabled={createTodo.isPending}
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );

@@ -21,7 +21,9 @@ export async function GET(request: NextRequest) {
             : {},
         ],
       },
+      orderBy: { createdAt: 'desc' } // Urutkan berdasarkan createdAt, dengan descending order
     };
+    
 
     const todos = await prismadb.todo.findMany(filter);
 

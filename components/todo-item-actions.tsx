@@ -18,13 +18,12 @@ interface TodoActionsProps {
 
 export const TodoActions: React.FC<TodoActionsProps> = ({ todoId }) => {
   const [open, setOpen] = useState<boolean>(false);
-  console.log(todoId);
   const { mutate: deleteTodo, isPending } = useDeleteTodo();
-
   const onDelete = () => {
-    deleteTodo(todoId)
-    setOpen(false); 
+    deleteTodo(todoId);
+    setOpen(false);
   };
+  
   return (
     <DropdownMenu>
       <DeleteModal

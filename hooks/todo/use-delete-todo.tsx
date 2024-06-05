@@ -1,14 +1,12 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const URL = `${baseUrl}/`; // Adjust the URL as needed
+const URL = `${baseUrl}/`; 
 
 export const useDeleteTodo = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: async (id: string): Promise<{ id: string }> => {
-      console.log({id})
       const res = await fetch(`${URL}${id}`, {
         method: "DELETE",
       });

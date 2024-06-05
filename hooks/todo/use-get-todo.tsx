@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const URL = `${baseUrl}/`;
 
 const fetchTodoById = async (id: string): Promise<Todo> => {
-  const res = await fetch(`${URL}?id=${id}`);
+  const res = await fetch(`${URL}${id}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch todo");

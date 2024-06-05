@@ -1,12 +1,13 @@
-import { Todo } from "@/types";
-import { useMutation } from "@tanstack/react-query";
+import { baseUrl } from "@/lib/baseUrl";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-type OnSuccessFn = (data: Todo) => void;
+const URL = baseUrl; // Tidak perlu tambahkan '/' kecuali diperlukan
 
-export const useCreateTodo = ({ onSuccess }: { onSuccess: OnSuccessFn }) => {
+export const useCreateTodo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (body: Todo): Promise<Todo> => {
-      const res = await fetch(`${URL}/`, {
+    mutationFn: async (body: Record<string, any>) => { // Menjadi lebih spesifik
+      const res = await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -20,6 +21,8 @@ export const useCreateTodo = ({ onSuccess }: { onSuccess: OnSuccessFn }) => {
 
       return res.json();
     },
-    onSuccess,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
   });
 };
