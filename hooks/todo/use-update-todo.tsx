@@ -1,5 +1,4 @@
 import { baseUrl } from "@/lib/baseUrl";
-import { Todo } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const URL = `${baseUrl}`;
@@ -7,10 +6,10 @@ const URL = `${baseUrl}`;
 export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (body: Todo): Promise<Todo> => {
+    mutationFn: async (body:any) => {
       const { id, ...updateData } = body;
       const todoResponse = await fetch(`${URL}/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -24,7 +23,9 @@ export const useUpdateTodo = () => {
       return todoResponse.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: [`todos`] });
+      queryClient.invalidateQueries({ queryKey: [`todo`] });
+
     },
   });
 };
